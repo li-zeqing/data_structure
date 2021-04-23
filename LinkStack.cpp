@@ -3,7 +3,11 @@
 using namespace std;
 typedef int SElemType;
 typedef int ElemType;
-
+/*
+	关于链栈的基本操作：
+	 创建链栈，初始化，入栈，出栈，
+	读取栈顶元素，返回链栈的长度，清空、销毁栈 。。。。 
+*/ 
 
 //链栈 
 typedef struct StackNode{
@@ -79,16 +83,19 @@ bool DestroyStack(LinkStack &S){
 
 
 int main(){
+	//创建并初始化一个栈 
 	LinkStack S;
 	InitStack(S);
+//	分别向栈中Push1,2,3,4 
 	Push(S,1);
 	Push(S,2);
 	Push(S,3);
 	Push(S,4);
-	ClearStack(S);
-//	DestroyStack(S);
-//	printf("%d",GetTop(S));
-	printf("%d",StackLength(S));
+	
+//	ClearStack(S);	//清空栈 
+//	DestroyStack(S);  //销毁栈 
+	printf("%d",GetTop(S));  //打印栈顶元素 
+//	printf("%d",StackLength(S));
 
 }
 
