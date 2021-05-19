@@ -5,8 +5,8 @@
 #include <iostream>
 #include <stdlib.h>
 using namespace std;
-typedef char SElemType;
-typedef char ElemType;
+typedef int SElemType;
+typedef int ElemType;
 
 
 //链栈 
@@ -93,7 +93,7 @@ bool Isnumber(char a){
 }
 int Priority[7][7] ={
 	//  建立以 + - * / ( ) @为行、列的二维数组，规定行所在的运算符优先级大于对应列所在的赋值为1
-	{1,1,0,0,0,1,1},{1,1,0,0,0,1,1},{1,1,1,1,0,1,1},{1,1,1,1,0,1,1},{0,0,0,0,0,2,1},{1,1,1,1,3,1,1},{0,0,0,0,0,1,2}
+	{1,1,0,0,0,1,1},{1,1,0,0,0,1,1},{1,1,1,1,0,1,1},{1,1,1,1,0,1,1},{0,0,0,0,0,2,3},{1,1,1,1,3,1,1},{0,0,0,0,0,3,2}
 };
 //定位运算符所在的数组下标 
 int Location(char a){
@@ -126,18 +126,17 @@ char Precede(char a ,char b){
 }
 
 //算数运算函数 
-char Operate(char left_num,char temp,char right_num){
-	left_num = left_num-48;
-	right_num = right_num-48;
+char Operate(int left_num,int temp,int right_num){
+	
 	switch(temp){
 		case '+':
-			return left_num + right_num+48;
+			return left_num + right_num;
 		case '-':
-			return left_num - right_num+48;
+			return left_num - right_num;
 		case '*':
-			return left_num * right_num+48;
+			return left_num * right_num;
 		case '/':
-			return left_num / right_num+48;
+			return left_num / right_num;
 	}
 	
 }
@@ -159,7 +158,7 @@ int main(){
 //	printf("%c",GetTop(OPTR));
 //	printf("%d",Operate(49,'+',50));
 //	int temp_opnd=0; 
-	char left,right,result;
+	int left,right,result;
 //	int left_num,right_num;
 	while(str[i] !='\0'){
 		//判断OPTR栈顶的运算符与当前读到的运算符str[i]比较，
@@ -171,7 +170,7 @@ int main(){
 //			num += temp_opnd; 
 //			temp_opnd=str[i]-48;
 //			Push(OPND,num);
-			Push(OPND,str[i]);
+			Push(OPND,str[i]-'0');
 		}
 		else if(str[i]=='('){
 			Push(OPTR,str[i]);
@@ -183,14 +182,14 @@ int main(){
 					Push(OPTR,str[i]);
 					break;
 				case '>':	//str[i]优先级小
-					char temp; 
+					int temp;
 					Pop(OPTR,temp);
 					Pop(OPND,right);
 					Pop(OPND,left);					
 					Push(OPND,Operate(left,temp,right));
 					continue;
 				case '=':
-					char x;
+					int x;
 					Pop(OPTR,x);
 					break;
 			}
@@ -198,14 +197,14 @@ int main(){
 		i++;
 	}
 	while(GetTop(OPTR)!='@'){
-		char temp;
+		int temp;
 		Pop(OPTR,temp);
 		Pop(OPND,right);
 		Pop(OPND,left);					
 		Push(OPND,Operate(left,temp,right));
 	}
 	Pop(OPND,result);
-	printf("%d",result-48);
+	printf("%d",result);
 	return 1;
 
 
